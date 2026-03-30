@@ -50,8 +50,8 @@ next-env.d.ts
 /dist-electron
 /launcher.js
 
-# Font base64 (auto-generated)
-/lib/NotoSans-Regular.b64.ts
+# Font base64 (auto-generated - uncomment to exclude)
+# /lib/NotoSans-Regular.b64.ts
 
 # Large public files
-/public/NotoSans-Regular.ttf
+# /public/NotoSans-Regular.ttf
