@@ -1,0 +1,79 @@
+{
+  "name": "m6-garage",
+  "version": "1.0.0",
+  "private": true,
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "eslint",
+    "postinstall": "prisma generate",
+    "seed": "tsx prisma/seed.ts",
+    "electron": "electron .",
+    "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron:build": "npm run build && electron-builder build --win"
+  },
+  "dependencies": {
+    "@fontsource/noto-sans": "^5.2.10",
+    "@prisma/client": "^5.22.0",
+    "@prisma/driver-adapter-utils": "^7.6.0",
+    "date-fns": "^4.1.0",
+    "dotenv": "^17.3.1",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.7",
+    "next": "^16.2.1",
+    "prisma": "^5.22.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zustand": "^5.0.12"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "babel-plugin-react-compiler": "1.0.0",
+    "concurrently": "^9.2.1",
+    "electron": "^41.1.0",
+    "electron-builder": "^26.8.1",
+    "eslint": "^9",
+    "eslint-config-next": "^16.2.1",
+    "tailwindcss": "^4",
+    "tsx": "^4.21.0",
+    "typescript": "^5",
+    "wait-on": "^9.0.4"
+  },
+  "build": {
+    "appId": "com.m6garage.app",
+    "productName": "M6 Garage",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "asar": false,
+    "files": [
+      "electron/**/*",
+      "public/**/*",
+      ".next/**/*",
+      "node_modules/**/*",
+      "package.json",
+      "prisma/**/*",
+      ".env",
+      "app/**/*",
+      "lib/**/*",
+      "components/**/*",
+      "hooks/**/*"
+    ],
+    "extraFiles": [
+      {
+        "from": "C:/Program Files/nodejs/node.exe",
+        "to": "node.exe"
+      }
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "public/logo.png",
+      "forceCodeSigning": false
+    }
+  }
+}

@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Customer {
+  id          String       @id @default(cuid())
+  ad          String
+  soyad       String
+  telefon     String       @unique
+  notlar      String?
+  createdAt   DateTime     @default(now())
+  motorcycles Motorcycle[]
+
+  @@map("customers")
+}
+
+model Motorcycle {
+  id             String          @id @default(cuid())
+  customerId     String
+  customer       Customer        @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  marka          String
+  model          String
+  yil            Int
+  plaka          String          @unique
+  km             Int             @default(0)
+  createdAt      DateTime        @default(now())
+  serviceRecords ServiceRecord[]
+
+  @@map("motorcycles")
+}
+
+model ServiceRecord {
+  id               String        @id @default(cuid())
+  motorcycleId     String
+  motorcycle       Motorcycle    @relation(fields: [motorcycleId], references: [id], onDelete: Cascade)
+  tarih            DateTime      @default(now())
+  km               Int
+  yapilanIslemler  String
+  toplamUcret      Float         @default(0)
+  notlar           String?
+  serviceItems     ServiceItem[]
+
+  @@map("service_records")
+}
+
+model ServiceItem {
+  id              String        @id @default(cuid())
+  serviceRecordId String
+  serviceRecord   ServiceRecord @relation(fields: [serviceRecordId], references: [id], onDelete: Cascade)
+  productId       String
+  product         Product       @relation(fields: [productId], references: [id])
+  adet            Int
+  fiyat           Float
+
+  @@map("service_items")
+}
+
+model Product {
+  id             String          @id @default(cuid())
+  urunAdi        String
+  kategori       String
+  stokMiktari    Int             @default(0)
+  minStokSeviyesi Int            @default(5)
+  alisFiyati     Float
+  satisFiyati    Float
+  serviceItems   ServiceItem[]
+  stockMovements StockMovement[]
+
+  @@map("products")
+}
+
+model StockMovement {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  tip       String
+  miktar    Int
+  tarih     DateTime @default(now())
+  aciklama  String?
+
+  @@map("stock_movements")
+}
