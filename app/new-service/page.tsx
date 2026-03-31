@@ -45,15 +45,15 @@ export default function NewServicePage() {
   const [items, setItems] = useState<ServiceItem[]>([]);
 
   useEffect(() => {
-    fetch('/api/customers').then((res) => res.json()).then(setCustomers);
-    fetch('/api/products').then((res) => res.json()).then(setProducts);
+    fetch('/api/customers').then((res) => res.json()).then(data => setCustomers(Array.isArray(data) ? data : []));
+    fetch('/api/products').then((res) => res.json()).then(data => setProducts(Array.isArray(data) ? data : []));
   }, []);
 
   useEffect(() => {
     if (selectedCustomer) {
       fetch(`/api/motorcycles?customerId=${selectedCustomer}`)
         .then((res) => res.json())
-        .then(setMotorcycles);
+        .then(data => setMotorcycles(Array.isArray(data) ? data : []));
     }
   }, [selectedCustomer]);
 
