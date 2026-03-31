@@ -3,9 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL")
-  directUrl         = env("DIRECT_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Customer {
@@ -62,15 +62,15 @@ model ServiceItem {
 }
 
 model Product {
-  id             String          @id @default(cuid())
-  urunAdi        String
-  kategori       String
-  stokMiktari    Int             @default(0)
-  minStokSeviyesi Int            @default(5)
-  alisFiyati     Float
-  satisFiyati    Float
-  serviceItems   ServiceItem[]
-  stockMovements StockMovement[]
+  id              String          @id @default(cuid())
+  urunAdi         String
+  kategori        String
+  stokMiktari     Int             @default(0)
+  minStokSeviyesi Int             @default(0)
+  alisFiyati      Float
+  satisFiyati     Float
+  serviceItems    ServiceItem[]
+  stockMovements  StockMovement[]
 
   @@map("products")
 }
