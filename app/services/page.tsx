@@ -7,6 +7,7 @@ import Toast from '@/components/Toast';
 import { useToast } from '@/hooks/useToast';
 import { generateServicePDF } from '@/lib/generateServicePDF';
 import { trSort } from '@/lib/sort';
+import ServiceMediaSection from '@/components/ServiceMediaSection';
 
 interface ServiceRecord {
   id: string;
@@ -295,6 +296,7 @@ export default function ServicesPage() {
                   </div>
                 </div>
               )}
+              <ServiceMediaSection serviceId={service.id} />
             </div>
           ))}
         </div>

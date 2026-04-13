@@ -45,8 +45,21 @@ model ServiceRecord {
   toplamUcret      Float         @default(0)
   notlar           String?
   serviceItems     ServiceItem[]
+  media            ServiceMedia[]
 
   @@map("service_records")
+}
+
+model ServiceMedia {
+  id              String        @id @default(cuid())
+  serviceRecordId String
+  serviceRecord   ServiceRecord @relation(fields: [serviceRecordId], references: [id], onDelete: Cascade)
+  url             String
+  tip             String
+  dosyaAdi        String?
+  createdAt       DateTime      @default(now())
+
+  @@map("service_media")
 }
 
 model ServiceItem {
